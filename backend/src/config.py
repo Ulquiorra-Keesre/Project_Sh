@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Загрузка переменных окружения из файла .env
 load_dotenv(dotenv_path=os.path.join('backend', '.env'))
 
 class Settings(BaseSettings):

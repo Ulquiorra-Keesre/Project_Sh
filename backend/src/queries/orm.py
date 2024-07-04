@@ -2,6 +2,22 @@ from sqlalchemy import text, insert, select
 from database import sync_engine, session_factory
 from models import metadata_obj, VacanciesOrm, Workload, Employment
 
+import requests
+
+def fetch_vacancies(search_text=None, per_page=20, area=1):
+    url = "https://api.hh.ru/vacancies"
+    params = {
+        "per_page": per_page,
+        "area": area
+    }
+
+    if search_text:
+        params["text"] = search_text
+
+    response = requests.get(url, params=params)
+    data = response.json()['items']
+    return data
+
 def create_tables():
     sync_engine.echo = False
     metadata_obj.drop_all(sync_engine)
