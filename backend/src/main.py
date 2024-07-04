@@ -7,11 +7,23 @@ from queries.orm import create_tables, insert_data
 from queries.orm import select_worker
 #from queries.orm import update_worker
 
-create_tables()
+from fastapi import FastAPI
+from api.endpoints import router
 
-insert_data("Разработчик", 100000, "Python, SQL", "Удаленная работа", "fulltime")
 
-select_worker()
+app = FastAPI()
+
+app.include_router(router)
+
+@app.on_event("startup")
+async def startup():
+    create_tables()
+
+
+
+# insert_data("Разработчик", 100000, "Python, SQL", "Удаленная работа", "fulltime")
+
+# select_worker()
 
 #update_worker()
 
