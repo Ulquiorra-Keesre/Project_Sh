@@ -22,7 +22,7 @@ def select_worker():
         result = session.execute(query)
         workers = result.all()
         print(f"{workers=}")
-        print(workers)
+        print(workers[0][0].title)
 
 
 def update_worker(worker_id: int=2, new_title: str="Asoroun"):
