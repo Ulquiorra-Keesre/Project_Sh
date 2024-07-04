@@ -1,0 +1,58 @@
+body {
+    background: linen;
+    
+}
+h1 {
+color: white;
+background-color:rgb(116, 28, 11);
+text-align: center;
+}
+p {
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+font-size: 15px;
+}
+
+
+a:visited {
+color: white;
+
+text-decoration:underline;
+padding: 5px;
+margin: 2px;
+text-align: center;
+
+}
+
+a:active, a:hover {
+color: yellow;
+background-color:red;
+text-decoration: underline;
+}
+
+button {
+background: linear-gradient(225deg, rgb(29, 149, 111) 70%, rgb(204, 22, 22)  80%  ,rgb(29, 149, 111) 90% );
+color: black
+}
+
+ul {
+list-style-type: none;
+background-color:rgb(116, 28, 11);
+overflow:hidden;
+margin: 0;
+padding: 0;
+}
+
+li {
+float:left;
+}
+
+li a {
+display:block;
+color: white;
+text-decoration:none;
+font-size: 16px;
+padding: 14px;
+margin: 3px;
+text-align: center;
+
+}
