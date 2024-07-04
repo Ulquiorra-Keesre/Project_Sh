@@ -1,6 +1,6 @@
 from sqlalchemy import text, insert, select
-from database import sync_engine, session_factory
-from models import metadata_obj, VacanciesOrm, Workload, Employment
+from backend.src.database import sync_engine, session_factory
+from backend.src.models import metadata_obj, VacanciesOrm, Workload, Employment
 
 import requests
 
@@ -36,9 +36,10 @@ def select_worker():
         # worker_A = session.get(VacanciesOrm, worker_id)
         query = select(VacanciesOrm)
         result = session.execute(query)
-        workers = result.all()
-        print(f"{workers=}")
-        print(workers[0][0].title)
+        workers = result.scalars().all()
+        # print(f"{workers=}")
+        # print(workers[0][0].title)
+        return workers
 
 
 def update_worker(worker_id: int=2, new_title: str="Asoroun"):

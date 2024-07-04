@@ -3,12 +3,12 @@ import sys
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
 #from queries.core import create_tables, insert_data
-from queries.orm import create_tables, insert_data
-from queries.orm import select_worker
+from backend.src.queries.orm import create_tables
+#from queries.orm import select_worker
 #from queries.orm import update_worker
 
 from fastapi import FastAPI
-from api.endpoints import router
+from backend.src.api.endpoints import router
 
 
 app = FastAPI()
