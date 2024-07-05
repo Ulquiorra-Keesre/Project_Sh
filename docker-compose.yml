@@ -11,7 +11,9 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     volumes:
       - ./backend/src:/app/app
     ports:
@@ -26,7 +28,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile 
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend/app:/app
     ports:
       - "3000:3000"
     depends_on:
