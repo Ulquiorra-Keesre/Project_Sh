@@ -27,6 +27,7 @@ def create_items(request: SearchRequest):
         schedule = vacancy.get('schedule', 'N/A')
         schedule_id = schedule.get('id', 'N/A')
         insert_data(title, salary_from, skills, employment_id, schedule_id)
+
     return data
 
 @router.get("/items")
