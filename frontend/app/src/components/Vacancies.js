@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function Vacancies() {
   const [keyword, setKeyword] = useState('');
   const [vacancies, setVacancies] = useState([]);
+  const [error, setError] = useState(null);
 
   const handleSearch = async () => {
     try {
@@ -27,15 +28,12 @@ function Vacancies() {
 
       const data = await getResponse.json();
       setVacancies(data.items);
+      setError(null); // Очистка ошибки при успешном запросе
     } catch (error) {
-      console.error('Error:', error);
+      setError(error.message); // Установка ошибки при неудаче
+      setVacancies([]); // Очистка вакансий при ошибке
     }
   };
-
-  // Загрузка вакансий при загрузке компонента
-  useEffect(() => {
-    handleSearch();
-  }, []);
 
   return (
     <div>
@@ -51,12 +49,13 @@ function Vacancies() {
       </form>
 
       <div id="results">
+        {error && <p>Error: {error}</p>}
         {vacancies.length > 0 ? (
           vacancies.map((vacancy, index) => (
             <div key={index}>
               <h3>{vacancy.title || 'No title'}</h3>
-              <p>{vacancy.salary || 'No salary from info'}</p>
-              <p>{vacancy.skills || 'No skills from info'}</p>
+              <p>{vacancy.salary ? `From: ${vacancy.salary}` : 'No salary info'}</p>
+              <p>{vacancy.skills ? vacancy.skills : 'No skills info'}</p>
               <p>Employment: {vacancy.employment || 'No employment info'}</p>
               <p>Schedule: {vacancy.workload || 'No schedule info'}</p>
             </div>
