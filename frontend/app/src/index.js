@@ -75,6 +75,18 @@
 //   });
 // });
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
 document.getElementById("submitButton").addEventListener("click", function() {
   const keyword = document.getElementById("keywordSelect").value;
 
@@ -83,7 +95,7 @@ document.getElementById("submitButton").addEventListener("click", function() {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ keyword: keyword, per_page: 20 })  // assuming a fixed per_page value, you can adjust it
+    body: JSON.stringify({ keyword: keyword, per_page: 20 })  
   })
   .then(response => {
     if (!response.ok) {
