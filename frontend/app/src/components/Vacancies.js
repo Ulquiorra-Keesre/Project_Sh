@@ -1,54 +1,4 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// const Vacancies = () => {
-//   const [vacancies, setVacancies] = useState([]);
-
-//   useEffect(() => {
-//     const fetchVacancies = async () => {
-//         try {
-//           const response = await axios.get('http://localhost:8000/items');
-//           setVacancies(response.data);
-//         } catch (error) {
-//           console.error('Error fetching vacancies:', error);
-//         }
-//       };
-
-//       fetchVacancies();
-//     }, []);
-  
-//     return (
-//       <div>
-//         <h1>Vacancies</h1>
-//         <table>
-//           <thead>
-//             <tr>
-//               <th>Title</th>
-//               <th>Salary</th>
-//               <th>Skills</th>
-//               <th>Employment</th>
-//               <th>Workload</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {vacancies.map((vacancy, index) => (
-//               <tr key={index}>
-//                 <td>{vacancy.title}</td>
-//                 <td>{vacancy.salary}</td>
-//                 <td>{vacancy.skills}</td>
-//                 <td>{vacancy.employment}</td>
-//                 <td>{vacancy.workload}</td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     );
-//   };
-  
-//   export default Vacancies;
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Vacancies() {
   const [keyword, setKeyword] = useState('');
@@ -56,7 +6,8 @@ function Vacancies() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch("http://localhost:8000/items", {
+      // Отправка POST запроса на сервер для поиска вакансий
+      const postResponse = await fetch("http://localhost:8000/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -64,16 +15,27 @@ function Vacancies() {
         body: JSON.stringify({ keyword: keyword, per_page: 20 })
       });
 
-      if (!response.ok) {
+      if (!postResponse.ok) {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json();
+      // Получение данных с сервера с помощью GET запроса
+      const getResponse = await fetch("http://localhost:8000/items");
+      if (!getResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await getResponse.json();
       setVacancies(data.items);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
+  // Загрузка вакансий при загрузке компонента
+  useEffect(() => {
+    handleSearch();
+  }, []);
 
   return (
     <div>
@@ -92,11 +54,11 @@ function Vacancies() {
         {vacancies.length > 0 ? (
           vacancies.map((vacancy, index) => (
             <div key={index}>
-              <h3>{vacancy.name || 'No title'}</h3>
-              <p>{vacancy.salary && vacancy.salary.from ? `From: ${vacancy.salary.from}` : 'No salary info'}</p>
-              <p>{vacancy.snippet && vacancy.snippet.requirement ? vacancy.snippet.requirement : 'No skills info'}</p>
-              <p>Employment: {vacancy.employment ? vacancy.employment.id : 'No employment info'}</p>
-              <p>Schedule: {vacancy.schedule ? vacancy.schedule.id : 'No schedule info'}</p>
+              <h3>{vacancy.title || 'No title'}</h3>
+              <p>{vacancy.salary || 'No salary from info'}</p>
+              <p>{vacancy.skills || 'No skills from info'}</p>
+              <p>Employment: {vacancy.employment || 'No employment info'}</p>
+              <p>Schedule: {vacancy.workload || 'No schedule info'}</p>
             </div>
           ))
         ) : (

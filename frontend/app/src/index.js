@@ -87,33 +87,38 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-document.getElementById("submitButton").addEventListener("click", function() {
+document.getElementById("submitButton").addEventListener("click", async function() {
   const keyword = document.getElementById("keywordSelect").value;
 
-  fetch("http://localhost:8000/items", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ keyword: keyword, per_page: 20 })  
-  })
-  .then(response => {
+  try {
+    // Отправка POST запроса на сервер
+    const response = await fetch("http://localhost:8000/items", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ keyword: keyword, per_page: 20 })  
+    });
+
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
-  })
-  .then(data => {
+
+    // Получение данных с сервера с помощью GET запроса
+    const data = await fetch("http://localhost:8000/items")
+      .then(response => response.json());
+
+    // Обработка полученных данных
     const resultsDiv = document.getElementById("results");
     resultsDiv.innerHTML = "";
 
     data.items.forEach(vacancy => {
       const div = document.createElement("div");
-      const title = vacancy.name || 'No title';
-      const salary = vacancy.salary && vacancy.salary.from ? `From: ${vacancy.salary.from}` : 'No salary info';
-      const skills = vacancy.snippet && vacancy.snippet.requirement ? vacancy.snippet.requirement : 'No skills info';
-      const employment = vacancy.employment ? vacancy.employment.id : 'No employment info';
-      const schedule = vacancy.schedule ? vacancy.schedule.id : 'No schedule info';
+      const title = vacancy.title || 'No title';
+      const salary = vacancy.salary || 'No salary from info';
+      const skills = vacancy.skills || 'No skills from info';
+      const employment = vacancy.employment || 'No employment info';
+      const schedule = vacancy.workload || 'No schedule info';
 
       div.innerHTML = `
         <h3>${title}</h3>
@@ -124,8 +129,8 @@ document.getElementById("submitButton").addEventListener("click", function() {
       `;
       resultsDiv.appendChild(div);
     });
-  })
-  .catch(error => {
+
+  } catch (error) {
     console.error('Error:', error);
-  });
+  }
 });

@@ -63,8 +63,8 @@ def select_worker():
             }
             for worker in workers
         ]
-        
-        return worker_dicts
+        #print({"items": worker_dicts})
+        return {"items": worker_dicts}
 
 
 def update_worker(worker_id: int=2, new_title: str="Asoroun"):
