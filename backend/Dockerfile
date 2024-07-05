@@ -1,4 +1,4 @@
-FROM python:3.11.5
+FROM python:3.11
 
 WORKDIR /app
 
@@ -6,6 +6,6 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY src/ .
 
-CMD ["python", "main.py"] # замените на команду запуска вашего приложения
+CMD ["python", "main.py"]

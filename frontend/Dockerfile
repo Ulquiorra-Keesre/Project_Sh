@@ -2,11 +2,12 @@ FROM node:14
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY app/package*.json ./
 
-RUN npm config set fetch-timeout 100000
 RUN npm install
 
-COPY . .
+COPY app/ .
+
+RUN npm run build
 
 CMD ["npm", "start"]

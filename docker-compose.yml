@@ -11,28 +11,28 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
-    volumes:
-      - ./backend/src:/app/app
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
-      - DATABASE_URL_psycopg=postgresql+psycopg://postgres:postgres@127.0.0.1:5432/dbname
+      - DATABASE_URL=postgresql://user:password@db:5432/database
+    volumes:
+      - ./backend/src:/app/src
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile 
-    volumes:
-      - ./frontend/app:/app
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - backend
+    volumes:
+      - ./frontend/app:/app/app
 
 volumes:
   postgres_data:
