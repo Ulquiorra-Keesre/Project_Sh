@@ -7,7 +7,7 @@ function Vacancies() {
 
   const handleSearch = async () => {
     try {
-      // Отправка POST запроса на сервер для поиска вакансий
+     
       const postResponse = await fetch("http://localhost:8000/items", {
         method: "POST",
         headers: {
@@ -20,7 +20,6 @@ function Vacancies() {
         throw new Error('Network response was not ok');
       }
 
-      // Получение данных с сервера с помощью GET запроса
       const getResponse = await fetch("http://localhost:8000/items");
       if (!getResponse.ok) {
         throw new Error('Network response was not ok');
@@ -28,10 +27,10 @@ function Vacancies() {
 
       const data = await getResponse.json();
       setVacancies(data.items);
-      setError(null); // Очистка ошибки при успешном запросе
+      setError(null); 
     } catch (error) {
-      setError(error.message); // Установка ошибки при неудаче
-      setVacancies([]); // Очистка вакансий при ошибке
+      setError(error.message); 
+      setVacancies([]); 
     }
   };
 

@@ -35,17 +35,6 @@ def insert_data(title, salary, skills, employment, workload):
         session.add(vacancy)
         session.commit()
 
-# def select_worker():
-#     with session_factory() as session:
-#         # worker_id = 2
-#         # worker_A = session.get(VacanciesOrm, worker_id)
-#         query = select(VacanciesOrm)
-#         result = session.execute(query)
-#         workers = result.scalars().all()
-#         # print(f"{workers=}")
-#         # print(workers[0][0].title)
-#         return workers
-
 def select_worker():
     with session_factory() as session:
         query = select(VacanciesOrm)
@@ -63,7 +52,7 @@ def select_worker():
             }
             for worker in workers
         ]
-        #print({"items": worker_dicts})
+    
         return {"items": worker_dicts}
 
 
