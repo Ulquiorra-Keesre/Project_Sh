@@ -15,8 +15,13 @@ def fetch_vacancies(search_text=None, per_page=20, area=1):
         params["text"] = search_text
 
     response = requests.get(url, params=params)
-    data = response.json()['items']
-    return data
+    data = response.json()
+    filtered_vacancies = []
+    for vacancy in data['items']:
+        if search_text.lower() in (str(vacancy).lower().split(' ')):
+            filtered_vacancies.append(vacancy)
+    
+    return filtered_vacancies, data
 
 def create_tables():
     sync_engine.echo = False
@@ -30,16 +35,36 @@ def insert_data(title, salary, skills, employment, workload):
         session.add(vacancy)
         session.commit()
 
+# def select_worker():
+#     with session_factory() as session:
+#         # worker_id = 2
+#         # worker_A = session.get(VacanciesOrm, worker_id)
+#         query = select(VacanciesOrm)
+#         result = session.execute(query)
+#         workers = result.scalars().all()
+#         # print(f"{workers=}")
+#         # print(workers[0][0].title)
+#         return workers
+
 def select_worker():
     with session_factory() as session:
-        # worker_id = 2
-        # worker_A = session.get(VacanciesOrm, worker_id)
         query = select(VacanciesOrm)
         result = session.execute(query)
         workers = result.scalars().all()
-        # print(f"{workers=}")
-        # print(workers[0][0].title)
-        return workers
+        
+        worker_dicts = [
+            {
+                'id': worker.id,
+                'title': worker.title,
+                'salary': worker.salary,
+                'skills': worker.skills,
+                'employment': worker.employment,
+                'workload': worker.workload
+            }
+            for worker in workers
+        ]
+        
+        return worker_dicts
 
 
 def update_worker(worker_id: int=2, new_title: str="Asoroun"):

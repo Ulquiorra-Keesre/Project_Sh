@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
+ 
 
   <link rel="icon" type="image/x-icon" href="my_favicon.ico" />
   <link rel="stylesheet" href="index_style.css" />
@@ -13,16 +13,35 @@
   <title>Job Scr</title>
 
 </head>
-<body>
-    <select id="keywordSelect">
-        <option value="Python программист">Python программист</option>
-        <option value="Java программист">Java программист</option>
-    </select>
-    <button id="submitButton">Submit</button>
-    <div id="results"></div>
 
-    
-      
+
+<body>
+  <div id="root"></div>
+
+  <header className="App-header">
+
+    <h1>Job Search</h1>
+
+    <select id="keywordSelect">
+
+      <option value="разработчик">разработчик</option>
+      <option value="Developer">Developer</option>
+
+    </select>
+
+    <button id="submitButton">Submit</button>
+
+  </header>
+
+  <div id="results"></div>
+
+  <script src="..src/index.js"></script>
+
+
 </body>
-<script src="src.index.js"></script>
+
+
+
+
+
 </html>
