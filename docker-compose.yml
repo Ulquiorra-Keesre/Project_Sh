@@ -19,7 +19,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/database
+      - DATABASE_URL_psycopg=postgresql+psycopg://postgres:postgres@127.0.0.1:5432/dbname
     volumes:
       - ./backend/src:/app/src
 

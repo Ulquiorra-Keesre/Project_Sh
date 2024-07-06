@@ -1,6 +1,6 @@
 from sqlalchemy import Table, String, Integer, Column, MetaData
 from sqlalchemy.orm import Mapped, mapped_column
-from backend.src.database import Base
+from src.database import Base
 import enum
 from typing import Optional
 
