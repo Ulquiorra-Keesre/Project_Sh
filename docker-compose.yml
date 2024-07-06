@@ -14,14 +14,17 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      - PYTHONPATH=/app/src
+      - DATABASE_URL_psycopg=postgresql+psycopg://postgres:postgres@127.0.0.1:5432/dbname
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
     ports:
       - "8000:8000"
     depends_on:
       - db
-    environment:
-      - DATABASE_URL_psycopg=postgresql+psycopg://postgres:postgres@127.0.0.1:5432/dbname
-    volumes:
-      - ./backend/src:/app/src
 
   frontend:
     build:

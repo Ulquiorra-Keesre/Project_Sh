@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from src.queries.orm import insert_data, select_worker, fetch_vacancies, create_tables
+from backend.src.queries.orm import insert_data, select_worker, fetch_vacancies, create_tables
 
 
 class SearchRequest(BaseModel):
