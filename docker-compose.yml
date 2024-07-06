@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:16.3
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dbname
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -28,11 +28,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
-    volumes:
-      - ./frontend/app:/app/app
+    
 
 volumes:
   postgres_data:

@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
-from src.config import settings
+from backend.src.config import settings
 
 sync_engine = create_engine(
     url = settings.DATABASE_URL_psycopg,

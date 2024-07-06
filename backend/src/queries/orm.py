@@ -1,6 +1,6 @@
 from sqlalchemy import text, insert, select
-from src.database import sync_engine, session_factory
-from src.models import metadata_obj, VacanciesOrm, Workload, Employment
+from backend.src.database import sync_engine, session_factory
+from backend.src.models import metadata_obj, VacanciesOrm, Workload, Employment
 
 import requests
 

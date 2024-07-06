@@ -3,7 +3,7 @@ import sys
 from fastapi.middleware.cors import CORSMiddleware
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 
-from src.queries.orm import create_tables
+from backend.src.queries.orm import create_tables
 
 
 from fastapi import FastAPI

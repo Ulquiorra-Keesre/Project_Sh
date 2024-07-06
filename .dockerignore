@@ -9,8 +9,7 @@ node_modules
 npm-debug.log
 
 # Ignore build directories
-dist
-build
+
 .next
 .nuxt
 .cache
