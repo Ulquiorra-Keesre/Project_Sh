@@ -17,8 +17,9 @@ def fetch_vacancies(search_text=None, per_page=20, area=1):
     response = requests.get(url, params=params)
     data = response.json()
     filtered_vacancies = []
+    
     for vacancy in data['items']:
-        if search_text.lower() in (str(vacancy).lower().split(' ')):
+        if search_text.lower() in str(vacancy).lower():
             filtered_vacancies.append(vacancy)
     
     return filtered_vacancies, data
